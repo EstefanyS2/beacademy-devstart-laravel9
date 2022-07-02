@@ -1,5 +1,5 @@
 @extends('template.users')
-@section('title', 'Visualizar Usuário')
+@section('title', $title)
 @section('body')
 <div class="container">
     <h1>Usuário {{ $user->name }}</h1>
@@ -10,7 +10,8 @@
                 <th scope="col">Nome</th>
                 <th scope="col">Email</th>
                 <th scope="col">Data Cadastro</th>
-                <th scope="col">Ações</th>
+                <th scope="col">Visualizar</th>
+                <th scope="col">Deletar</th>
             </tr>
         </thead>
         <tbody class="text-center">
@@ -20,8 +21,14 @@
                 <td>{{ $user->email }}</td>
                 <td>{{ date('d/m/y - H:i', strtotime($user->created_at)) }}</td>
                 <td>
-                    <a href="" class="btn btn-warning text-white">Editar</a>
-                    <a href="" class="btn btn-danger text-white">Deletar</a>
+                    <a href="{{ route('users.edit', $user->id) }}" class="btn btn-warning text-white">Editar</a>
+                </td>
+                <td>
+                    <form action="{{ route('users.destroy', $user->id) }}" method="POST">
+                        @method('DELETE')
+                        @csrf
+                        <button type="submit" class="btn btn-danger text-white">Deletar</button>
+                    </form>   
                 </td>
             </tr>
         </tbody>

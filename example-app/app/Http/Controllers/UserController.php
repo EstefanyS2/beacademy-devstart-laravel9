@@ -16,20 +16,19 @@ class UserController extends Controller
 
     public function index()
     {
-        $users = User::all();
-        
+        $users = User::paginate(5);
+
         return view('users.index', compact('users'));
-      
     }
 
     public function show($id)
     {
         //$user = user::where('id', $id)->first();
 
-        if(!$user = User::find($id))
-           return redirect()->route('users.index');
+        if (!$user = User::find($id))
+            return redirect()->route('users.index');
 
-          $title = 'Usuário ' . $user->name;
+        $title = 'Usuário ' . $user->name;
 
 
         return view('users.show', compact('user', 'title'));
@@ -37,23 +36,25 @@ class UserController extends Controller
 
     public function create()
     {
-       return view('users.create');
+        return view('users.create');
     }
 
     public function store(StoreUpdateUserFormRequest $request)
     {
         //$user = new user;
-       // $user->name = $request->name;
+        // $user->name = $request->name;
         //$user->email = $request->email;
         //$user->password = bcrypt($request->password);
         //$user->save();
-        
+
         $data = $request->all();
         $data['password'] = bcrypt($request->password);
 
-       $file = $request['image'];
-       $path = $file->store('profile', 'public');
-       $data['image'] = $path;
+        if ($request->image) {
+            $file = $request['image'];
+            $path = $file->store('profile', 'public');
+            $data['image'] = $path;
+        }
 
         $this->model->create($data);
 
@@ -62,7 +63,7 @@ class UserController extends Controller
 
     public function edit($id)
     {
-        if(!$user = $this->model->find($id))
+        if (!$user = $this->model->find($id))
             return redirect()->route('user.index');
 
         return view('users.edit', compact('user'));
@@ -70,25 +71,25 @@ class UserController extends Controller
 
     public function update(StoreUpdateUserFormRequest $request, $id)
     {
-        if(!$user = $this->model->find($id))
-           return redirect()->route('users.index');
+        if (!$user = $this->model->find($id))
+            return redirect()->route('users.index');
 
         $data = $request->only('name', 'email');
-        if($request->passoword)
-          $data['password']= bcrypt($request->password);
+        if ($request->passoword)
+            $data['password'] = bcrypt($request->password);
 
-          $user->update($data);
+        $user->update($data);
 
-          return redirect()->route('users.index');
+        return redirect()->route('users.index');
     }
 
     public function destroy($id)
     {
-        if(!$user = $this->model->find($id))
-         return redirect()->route('users.index');
+        if (!$user = $this->model->find($id))
+            return redirect()->route('users.index');
 
-         $user->delete();
+        $user->delete();
 
-         return redirect()->route('users.index');
+        return redirect()->route('users.index');
     }
 }

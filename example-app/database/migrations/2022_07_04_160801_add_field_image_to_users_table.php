@@ -29,4 +29,4 @@ class AddFieldImageToUsersTable extends Migration
             $table->dropColumn('image');
         });
     }
-};
+}

@@ -32,4 +32,4 @@
     </div>
     <button type="submit" class="btn btn-primary">Enviar</button>
 </form>
-@endsection
+@endsection 

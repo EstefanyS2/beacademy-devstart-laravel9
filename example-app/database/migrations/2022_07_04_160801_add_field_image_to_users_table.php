@@ -14,7 +14,7 @@ class AddFieldImageToUsersTable extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->string('image')->nullable()->after('email'); //inserir a coluna 'image' depos de 'email'
+            $table->string('image')->nullable()->after('email');
         });
     }
 

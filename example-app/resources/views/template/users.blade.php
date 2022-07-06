@@ -10,9 +10,8 @@
 </head>
 
 <body>
-    <div class="container">
-        @yield('body')
-    </div>
+    <div class="container w-40 p-3">
+@yield('body')
+</div>
 </body>
-
 </html>

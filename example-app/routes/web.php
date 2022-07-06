@@ -13,6 +13,8 @@ Route::get('/', function() {
 ///Route::post('products', [UserController::class, 'list'])->name('products');
 //Route::get('produto/lista', [UserController::class, '']);
 
+Route::get('/posts', [PostController::class, 'index'])->name('posts.index');
+
 Route::delete('/users/{id}', [UserController::class, 'destroy'])->name('users.destroy');
 Route::put('/users/{id}', [UserController::class, 'update'])->name('users.update');
 Route::get('/users{id}/edit', [UserController::class, 'edit'])->name('users.edit');

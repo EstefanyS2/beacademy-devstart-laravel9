@@ -40,7 +40,7 @@ class StoreUpdateUserFormRequest extends FormRequest
 
             'image' => [
                'file',
-               'mimes:jpeg,png,jpg,gif,svg',
+               'mimes:jpeg,png,jpg,gif,svg,webp',
             ],
         ];
 

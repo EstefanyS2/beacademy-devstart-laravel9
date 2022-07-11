@@ -18,10 +18,10 @@ class CreatePostsTable extends Migration
             $table->foreignId('user_id')
             ->constrained('users')
             ->onDelete('CASCADE')
-            ->onUodate('CASCADE');
+            ->onUpdate('CASCADE');
             $table->string('title');
             $table->text('post');
-            $table->boolean('active')->defalt(true);
+            $table->boolean('active')->default(true);
             $table->timestamps();
         });
     }

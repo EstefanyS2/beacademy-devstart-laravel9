@@ -6,7 +6,6 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Requests\StoreUpdateUserFormRequest;
 
-
 class UserController extends Controller
 {
     public function __construct(User $user)
@@ -14,9 +13,11 @@ class UserController extends Controller
         $this->model = $user;
     }
 
-    public function index()
+    public function index(Request $request)
     {
-        $users = User::paginate(5);
+        $users = $this->model->getUsers(
+            $request->search ?? ''
+        );
 
         return view('users.index', compact('users'));
     }
@@ -25,13 +26,10 @@ class UserController extends Controller
     {
         //$user = user::where('id', $id)->first();
 
-        if (!$user = User::find($id))
+        if (!$user = User::findOrFail($id))
             return redirect()->route('users.index');
 
-        $title = 'Usuário ' . $user->name;
-
-
-        return view('users.show', compact('user', 'title'));
+        return view('users.show', compact('user'));
     }
 
     public function create()
@@ -92,5 +90,9 @@ class UserController extends Controller
 
         return redirect()->route('users.index');
     }
-}
 
+    public function admin()
+    {
+        return view('admin.index');
+    }
+}

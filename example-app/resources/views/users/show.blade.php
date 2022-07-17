@@ -1,5 +1,5 @@
 @extends('template.users')
-@section('title', $title)
+@section('title', 'title')
 @section('body')
 <div class="container">
     <h1>Usuário {{ $user->name }}</h1>
@@ -28,10 +28,10 @@
                         @method('DELETE')
                         @csrf
                         <button type="submit" class="btn btn-danger text-white">Deletar</button>
-                    </form>   
+                    </form>
                 </td>
             </tr>
         </tbody>
     </table>
 </div>
-    @endsection
+@endsection

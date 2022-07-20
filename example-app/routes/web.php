@@ -9,11 +9,6 @@ use App\Http\Controllers\{
 
 require __DIR__.'/auth.php';
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
-
 Route::middleware(['auth'])->group(function () {
     
 Route::get('/posts', [PostController::class, 'index'])->name('posts.index');
